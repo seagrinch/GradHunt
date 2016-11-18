@@ -1,0 +1,73 @@
+<ion-view title="Search" id="page2" style="background-color:#FFFFFF;">
+  <ion-content padding="true" class="has-header">
+    <h3 id="search-heading3" style="color:#888888;text-align:center;">Grad School Search</h3>
+    <form id="search-form7" class="list">
+      <div id="search-markdown6">
+        <p style="color:#336699;font-size:16px;">Region/Location </p>
+      </div>
+      <label class="item item-select" id="search-select1">
+        <span class="input-label">Select from the list</span>
+        <select>
+          <option>Northeast</option>
+          <option>Midwest</option>
+          <option>South</option>
+          <option>West</option>
+        </select>
+      </label>
+    </form>
+    <div id="search-markdown9">
+      <p style="color:#336699;font-size:16px;">Degree</p>
+    </div>
+    <form id="search-form8" class="list">
+      <label class="item item-select" id="search-select3">
+        <span class="input-label">Select from the list</span>
+        <select>
+          <option>Master</option>
+          <option>Doctorate</option>
+        </select>
+      </label>
+    </form>
+    <div id="search-markdown10">
+      <p style="color:#336699;font-size:16px;">Program</p>
+    </div>
+    <form id="search-form9" class="list">
+      <label class="item item-select" id="search-select2">
+        <span class="input-label">Select from the list</span>
+          <select ng-options="program as program.title for program in programs track by program.title" ng-model="selected">
+          </select>
+        <!--select>
+            
+            <ion-item ng-repeat="program in programs">
+                 <option>{{program.title}}</option>
+            </ion-item>
+   
+        </select-->
+      </label>
+    </form>
+    <div id="search-markdown11">
+      <p style="margin-top:0px;color:#336699;font-size:16px;">School Size</p>
+    </div>
+    <div id="search-button-bar1" class="button-bar">
+      <button id="search-button5" style="border-radius:2px 2px 2px 2px;" class="button button-stable  button-block button-outline">&lt; 2,000</button>
+      <button id="search-button6" style="font-size:10px;" class="button button-stable  button-block button-outline">2,000~10,000</button>
+      <button id="search-button7" class="button button-stable  button-block button-outline">&gt; 10,000</button>
+    </div>
+    <div id="search-markdown13">
+      <p style="color:#336699;font-size:16px;">GRE Verbal Reasoning Score</p>
+    </div>
+    <form id="search-form12" class="list">
+      <ion-item class="range range-light" id="search-range2">
+        <input type="range" value="50" min="130" max="170" step="1">
+      </ion-item>
+    </form>
+    <div id="search-markdown12">
+      <p style="color:#336699;font-size:16px;">GRE Quantative Reasoning Score</p>
+    </div>
+    <form id="search-form16" class="list">
+      <ion-item class="range range-positive" id="search-range4">
+        <input type="range" value="50" min="130" max="170" step="1">
+      </ion-item>
+      <a ui-sref="tabsController.searchResult" id="search-button8" class="button button-positive  button-block">Search Schools</a>
+    </form>
+  </ion-content>
+</ion-view>

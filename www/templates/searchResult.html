@@ -1,0 +1,15 @@
+<ion-view title="Search Result" id="page12" style="background-color:#FFFFFF;">
+  <ion-content padding="true" class="has-header">
+    <div id="searchResult-button-bar2" class="button-bar">
+      <button id="searchResult-button12" style="font-weight:600;font-size:9px;" class="button button-stable button-large button-block">Recommended </button>
+      <button id="searchResult-button15" style="font-weight:600;font-size:9px;" class="button button-stable button-large button-block">Stretch</button>
+      <button id="searchResult-button16" style="font-weight:600;font-size:9px;" class="button button-stable button-large button-block">Easy</button>
+    </div>
+    <ion-list id="searchResult-list4">
+        <ion-item ng-repeat="school in schools" ui-sref="tabsController.schoolInfo">{{school.INSTNM}}
+        </ion-item>
+     
+    </ion-list>
+    <a ui-sref="tabsController.login" id="searchResult-button17" class="button button-positive  button-block">Login to unlock more schools </a>
+  </ion-content>
+</ion-view>
