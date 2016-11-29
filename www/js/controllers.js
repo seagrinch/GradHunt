@@ -107,12 +107,16 @@ function ($scope, $stateParams) {
 
 }])
    
-.controller('schoolInfoCtrl', function($scope, SchoolService, DataStore) {
+.controller('schoolInfoCtrl', function($scope, $window, SchoolService, DataStore) {
 	$scope.school = [];
   SchoolService.getSchool(DataStore.school).then(function(res) {
       $scope.school = res;
       console.log($scope.school);
   });
+
+  $scope.redirectToUrl = function(url){
+    $window.open("http://"+url, '_blank');
+  };
 })
 
 
