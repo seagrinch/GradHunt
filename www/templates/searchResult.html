@@ -6,7 +6,9 @@
       <button id="searchResult-button16" style="font-weight:600;font-size:9px;" class="button button-stable button-large button-block">Easy</button>
     </div>
     <ion-list id="searchResult-list4">
-        <ion-item ng-repeat="school in schools" ui-sref="tabsController.schoolInfo">{{school.INSTNM}}
+        <ion-item ng-repeat="school in schools" ng-click="changeSchool(school.id)">
+          <strong>{{school.INSTNM}}</strong><br>
+          {{school.CITY}}, {{school.STABBR}}
         </ion-item>
      
     </ion-list>

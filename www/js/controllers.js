@@ -43,12 +43,20 @@ angular.module('app.controllers', [])
   
 })
    
-.controller('searchResultCtrl', function($scope,SchoolService,DataStore) {
+.controller('searchResultCtrl', function($scope, $state, SchoolService, DataStore) {
 	$scope.schools = [];
-    SchoolService.getSchools(DataStore.program,DataStore.degree,DataStore.region,DataStore.score).then(function(res) {
-      $scope.schools = res;
-      console.log($scope.schools );
+  SchoolService.getSchools(DataStore.program,DataStore.degree,DataStore.region,DataStore.score).then(function(res) {
+    $scope.schools = res;
+    console.log($scope.schools );
   });
+
+  $scope.school = DataStore.school;
+  $scope.changeSchool = function(schoolId) {
+    DataStore.setSchool(schoolId);	
+    console.log(schoolId)
+  	$state.go('tabsController.schoolInfo');
+  }
+
 })
    
 .controller('favoritesCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
@@ -99,13 +107,15 @@ function ($scope, $stateParams) {
 
 }])
    
-.controller('schoolInfoCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-// You can include any angular dependencies as parameters for this function
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
+.controller('schoolInfoCtrl', function($scope, SchoolService, DataStore) {
+	$scope.school = [];
+  SchoolService.getSchool(DataStore.school).then(function(res) {
+      $scope.school = res;
+      console.log($scope.school);
+  });
+})
 
 
-}])
    
 .controller('coachSearchResultCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
