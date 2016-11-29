@@ -3,27 +3,23 @@
     <h3 id="search-heading3" style="color:#888888;text-align:center;">Grad School Search</h3>
     <form id="search-form7" class="list">
       <div id="search-markdown6">
-        <p style="color:#336699;font-size:16px;">Region/Location </p>
+        <p style="color:#336699;font-size:16px;">Region</p>
       </div>
       <label class="item item-select" id="search-select1">
         <span class="input-label">Select from the list</span>
-        <select>
-          <option>Northeast</option>
-          <option>Midwest</option>
-          <option>South</option>
-          <option>West</option>
+        <select ng-model="region" ng-change="updateRegion(region)" ng-options="reg.id as reg.title for reg in regions">
         </select>
       </label>
     </form>
     <div id="search-markdown9">
-      <p style="color:#336699;font-size:16px;">Degree</p>
+      <p style="color:#336699;font-size:16px;">Degree Type</p>
     </div>
     <form id="search-form8" class="list">
       <label class="item item-select" id="search-select3">
         <span class="input-label">Select from the list</span>
-        <select>
-          <option>Master</option>
-          <option>Doctorate</option>
+        <select ng-model="degree" ng-change="updateDegree(degree)">
+          <option value="masters">Masters</option>
+          <option value="phd">Doctorate</option>
         </select>
       </label>
     </form>
@@ -33,7 +29,7 @@
     <form id="search-form9" class="list">
       <label class="item item-select" id="search-select2">
         <span class="input-label">Select from the list</span>
-          <select ng-options="program as program.title for program in programs track by program.title" ng-model="selected">
+          <select ng-model="program" ng-change="updateProgram(program)" ng-options="program.id as program.title for program in programs track by program.title">
           </select>
         <!--select>
             
@@ -44,6 +40,7 @@
         </select-->
       </label>
     </form>
+<!--
     <div id="search-markdown11">
       <p style="margin-top:0px;color:#336699;font-size:16px;">School Size</p>
     </div>
@@ -52,20 +49,23 @@
       <button id="search-button6" style="font-size:10px;" class="button button-stable  button-block button-outline">2,000~10,000</button>
       <button id="search-button7" class="button button-stable  button-block button-outline">&gt; 10,000</button>
     </div>
+-->
+<!--
     <div id="search-markdown13">
       <p style="color:#336699;font-size:16px;">GRE Verbal Reasoning Score</p>
     </div>
     <form id="search-form12" class="list">
       <ion-item class="range range-light" id="search-range2">
-        <input type="range" value="50" min="130" max="170" step="1">
+        200 <input type="range" value="600" min="200" max="800" step="10"> 800
       </ion-item>
     </form>
+-->
     <div id="search-markdown12">
-      <p style="color:#336699;font-size:16px;">GRE Quantative Reasoning Score</p>
+      <p style="color:#336699;font-size:16px;">GRE Quantitive Reasoning Score {{gre}}</p>
     </div>
     <form id="search-form16" class="list">
-      <ion-item class="range range-positive" id="search-range4">
-        <input type="range" value="50" min="130" max="170" step="1">
+      <ion-item class="range range-light" id="search-range4">
+        200 <input type="range" value="600" min="200" max="800" step="10" ng-model="score" ng-change="updateScore(score)"> 800
       </ion-item>
       <a ui-sref="tabsController.searchResult" id="search-button8" class="button button-positive  button-block">Search Schools</a>
     </form>
