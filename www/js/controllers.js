@@ -115,7 +115,10 @@ function ($scope, $stateParams) {
   });
 
   $scope.redirectToUrl = function(url){
-    $window.open("http://"+url, '_blank');
+    console.log(url);
+    if(url) {
+      $window.open("http://"+url, '_blank');
+    }
   };
 })
 
