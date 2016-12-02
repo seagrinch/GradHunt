@@ -1,97 +1,93 @@
 angular.module('app.services', [])
 
 .factory('SchoolService', ['$http','$q',function($http,$q){
-
-	return {
-		getSchools:function() {
-			var deferred = $q.defer();
-			
-			$http.get("http://gradhunt.visualduck.com/schools.json")
-                .then(function(res) {
-                console.log(res);
-			
-				var results = res.data.map(function(result) {
-				
-					return result;
-				});
-
-				deferred.resolve(results);
-			},
-            function(response){
-                console.log("error in gradhunt services");
-                console.log(response);
-            });
-            /*$http({
-                    url: "http://gradhunt.visualduck.com/schools.json",
-                    method: "GET",
-                }).success(function(response){
-                   console.log("success")
-                    console.log(response)
-                    
-                }).error(function(error){
-                 console.log("error")
-                });*/
-           /* $http.get("http://swapi.co/api/films").then(
-                    function(response) {
-                        console.log('get',response);
-                        
-                    },
-                    function(data) {
-                        // Handle error here
-                         console.log("error");
-                        console.log(data);
-                    });*/
-            /*
-            $http.get('http://gradhunt.herokuapp.com/parse/classes/Coaches',{
-                    headers:{
-                        'X-Parse-Application-Id': "gradhunt_2016_mobileapp",
-                    }
-                 }).then(function(successResponse){
-                       console.log(successResponse.data.results[0].FirstName);
-                    }, function(errorResponse){
-                      
-                 }).finally(function(){
-                     
-                 });
-            */
+  return {
+    getSchools:function(program, degree, region, score) {
+      var deferred = $q.defer();
+      
+      url = "http://gradhunt.visualduck.com/schools/recommend/"+program+".json?degree="+degree+"&score="+score;
+      if(region) {
+        url += "&region="+region
+      }
+      console.log(url);
+      
+      $http.get(url).then(function(res) {
+        console.log(res);
+        var results = res.data.map(function(result) {
+          return result;
+        });
+        deferred.resolve(results);
+      },
+      function(response){
+        console.log("error in gradhunt services");
+        console.log(response);
+      });
 			return deferred.promise;
-		},
-		getFilm:function(url) {
-			var deferred = $q.defer();
-			
-			$http.get(url).then(function(res) {
-				//console.dir(res.data);
-				deferred.resolve(res.data);
-			});
-
+		},	
+    getSchool:function(id) {
+      var deferred = $q.defer();
+      
+      url = "http://gradhunt.visualduck.com/schools/view/"+id+".json?";
+      console.log(url);
+      
+      $http.get(url).then(function(res) {
+        console.log(res);
+        var results = res.data;
+        deferred.resolve(results);
+      },
+      function(response){
+        console.log("error in gradhunt services");
+        console.log(response);
+      });
 			return deferred.promise;
-			
-		}	
-	};
+		},	
+  };
 }])
+
 .factory('ProgramService', ['$http','$q',function($http,$q){
-    return {
-		getPrograms:function() {
-			var deferred = $q.defer();
-		
-			$http.get("http://gradhunt.visualduck.com/programs.json").then(function(res) {
-                console.log(res);
-			
-				var results = res.data.map(function(result) {
-					return result;
-				});
-
+  return {
+    getPrograms:function() {
+      var deferred = $q.defer();
+      $http.get("majors.json").then(function(res) {
+        console.log(res);
+        var results = res.data.map(function(result) {
+          return result;
+        });
 				deferred.resolve(results);
 			},
-            function(response){
-                console.log("error in gradhunt services");
-                console.log(response);
-            });
-            return deferred.promise;
-        }
-    };
+      function(response){
+        console.log("error in gradhunt services");
+        console.log(response);
+      });
+      return deferred.promise;
+    }
+  };
 }])
-.service('BlankService', [function(){
 
+
+.factory('DataStore', function() {
+    //create datastore with default values
+    var DataStore = {region:0, degree:'phd', program:1234, score:800, school:0};
+
+    DataStore.setRegion = function(value) {
+       DataStore.region = value;
+    };
+    DataStore.setDegree = function(value) {
+       DataStore.degree = value;
+    };
+    DataStore.setProgram = function(value) {
+       DataStore.program = value;
+    };
+    DataStore.setScore = function(value) {
+       DataStore.score = value;
+    };
+    DataStore.setSchool = function(value) {
+       DataStore.school = value;
+    };
+   
+    return DataStore;
+})
+
+.service('BlankService', [function(){
 }]);
 

@@ -1,63 +1,66 @@
 <ion-view title="School Info" id="page22">
   <ion-content padding="true" class="has-header">
-    <div style="margin: 0px; line-height: 250px; background-color: rgb(232, 235, 239); text-align: center;">
-      <i class="icon ion-image" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;"></i>
+    <div style="margin: 0px; height: 250px; background-color: rgb(232, 235, 239); text-align: center;">
+<!--       <i class="icon ion-image" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;"></i> -->
+      <img src="../img/oldqueens_250.jpg" alt="oldqueens" />
     </div>
     <div id="schoolInfo-button-bar9" class="button-bar">
-      <button id="schoolInfo-button61" class="button button-positive  button-block icon ion-link"></button>
+      <button id="schoolInfo-button61" class="button button-positive  button-block icon ion-link" ng-click="redirectToUrl(school.WEBADDR)"></button>
       <button id="schoolInfo-button62" class="button button-positive  button-block icon ion-android-bookmark"></button>
     </div>
-    <h2 id="schoolInfo-heading12" style="color:#888888;font-weight:600;">School </h2>
+    <h2 id="schoolInfo-heading12" style="color:#888888;font-weight:600;">{{school.INSTNM}} </h2>
     <div id="schoolInfo-markdown22">
-      <p style="color:#888888;">City, State</p>
+      <p style="color:#888888;">{{school.CITY}}, {{school.STABBR}}</p>
     </div>
     <div id="schoolInfo-markdown32">
-      <p style="color:#000000;">Instituion Type:</p>
+      <p style="color:#000000;"><strong>Institution Type:</strong> {{school.INSTCAT}}</p>
     </div>
     <div id="schoolInfo-markdown33">
-      <p style="color:#000000;">Instituion Size :</p>
+      <p style="color:#000000;"><strong>Institution Size:</strong> {{school.INSTSIZE}}</p>
     </div>
     <div id="schoolInfo-markdown34">
-      <p style="color:#000000;">City Size :</p>
+      <p style="color:#000000;"><strong>City Size:</strong> {{school.LOCALE}}</p>
     </div>
     <div id="schoolInfo-markdown35">
-      <p style="color:#000000;">In-state Tutition :</p>
+      <p style="color:#000000;"><strong>In-state Tuition:</strong> {{school.TUITION6}}</p>
     </div>
     <div id="schoolInfo-markdown36">
-      <p style="color:#000000;">Out of State Tutition :</p>
+      <p style="color:#000000;"><strong>Out of State Tuition:</strong> {{school.TUITION7}}</p>
     </div>
     <div id="schoolInfo-markdown37">
-      <p style="color:#000000;">Application Fee :</p>
+      <p style="color:#000000;"><strong>Application Fee:</strong> {{school.APPLFEEG}}</p>
     </div>
     <div id="schoolInfo-markdown38">
-      <p style="color:#000000;">Highest Degree :</p>
+      <p style="color:#000000;"><strong>Highest Degree:</strong> {{school.HLOFFER}}</p>
     </div>
+<!--
     <div id="schoolInfo-markdown39">
-      <p style="color:#000000;">No. of Master’s Programs :</p>
+      <p style="color:#000000;"><strong>No. of Master’s Programs:</strong> {{school.INSTCAT}}</p>
     </div>
     <div id="schoolInfo-markdown40">
-      <p style="color:#000000;">No. of Doctor’s Programs :</p>
+      <p style="color:#000000;"><strong>No. of Doctor’s Programs:</strong> {{school.INSTCAT}}</p>
     </div>
     <div id="schoolInfo-markdown41">
-      <p style="color:#000000;">Full-time Graduate Students :</p>
+      <p style="color:#000000;"><strong>Full-time Graduate Students:</strong> {{school.INSTCAT}}</p>
     </div>
     <div id="schoolInfo-markdown42">
-      <p style="color:#000000;">Part time Graduate Students :</p>
+      <p style="color:#000000;"><strong>Part time Graduate Students:</strong> {{school.INSTCAT}}</p>
     </div>
+-->
     <div id="schoolInfo-markdown43">
-      <p style="color:#000000;">Applicants Total :</p>
+      <p style="color:#000000;"><strong>Applicants Total:</strong> {{school.APPLCN}}</p>
     </div>
     <div id="schoolInfo-markdown44">
-      <p style="color:#000000;">Admissions Total :</p>
+      <p style="color:#000000;"><strong>Admissions Total:</strong> {{school.ADMSSN}}</p>
     </div>
     <div id="schoolInfo-markdown45">
-      <p style="color:#000000;">Enrolled Total :</p>
+      <p style="color:#000000;"><strong>Enrolled Total:</strong> {{school.ENRLT}}</p>
     </div>
     <div id="schoolInfo-markdown46">
-      <p style="color:#000000;">SAT Math 25/75 :</p>
+      <p style="color:#000000;"><strong>SAT Math 25/75:</strong> {{school.SATMT25}} - {{school.SATMT75}}</p>
     </div>
     <div id="schoolInfo-markdown47">
-      <p style="color:#000000;">SAT Verbal 25/75 :</p>
+      <p style="color:#000000;"><strong>SAT Verbal 25/75:</strong> {{school.SATWR25}} - {{school.SATWR75}}</p>
     </div>
     <a ui-sref="tabsController.todo" id="schoolInfo-button64" class="button button-positive  button-block">Add Deadline to Todos</a>
     <button id="schoolInfo-button65" class="button button-positive  button-block">Ask a graduate coach</button>
