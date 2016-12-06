@@ -155,19 +155,20 @@ function ($scope, $stateParams) {
 
   $scope.addFavorite = function(school){
     console.log(school);
-    $scope.submitObject = function(){
-      console.log('Saving school Name');
        Parse.initialize("gradhunt_2016_mobileapp");
      Parse.serverURL = 'http://gradhunt.herokuapp.com/parse' 
+      console.log('Saving school Name');
+       
      console.log('Parse initializing');
      // var dataToSubmit = {_ContentType: Name, _type : "Object"};
-      $http.post("http://gradhunt.herokuapp.com/parse/classes/Favorites", school.INSTNM,
+       $http.post("http://gradhunt.herokuapp.com/parse/classes/Favorites", 
+                       {"SchoolName":school.INSTNM,"City":school.CITY,"State":school.STABBR}, 
                      
                        {headers: 
                        {  'X-Parse-Application-Id': "gradhunt_2016_mobileapp",
                    }});
       console.log('Data posted in parse');
-    }
+    
   }
 })
 

@@ -11,8 +11,13 @@
         <br><h3 class="app-headline">{{ appHeadline }}</h3></br>
  </header>
 
-
   <section class="app-body">
+
+<style>
+  .done-true{
+  text-decoration: line-through;
+}
+</style>
     <section class="archive-control">
       <span>{{ remaining() }} of {{ todos.length }} remaining</span>
       <p>[ <a href="" data-ng-click="archive()">Remove Completed Items</a> ]</p>
