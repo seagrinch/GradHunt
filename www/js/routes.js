@@ -179,6 +179,10 @@ angular.module('app.routes', ['ionicUIRouter'])
   .state('tabsController.advisingSection', {
     url: '/page7',
     views: {
+      'tab1': {
+        templateUrl: 'templates/advisingSection.html',
+        controller: 'advisingSectionCtrl'
+      },
       'tab4': {
         templateUrl: 'templates/advisingSection.html',
         controller: 'advisingSectionCtrl'
