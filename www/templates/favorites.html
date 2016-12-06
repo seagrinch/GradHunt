@@ -1,21 +1,11 @@
 <ion-view title="Favorites" id="page3">
   <ion-content padding="true" class="has-header">
     <ion-list id="favorites-list25">
-      <ion-item class="item-thumbnail-left item-icon-right" id="favorites-list-item71" ui-sref="tabsController.schoolInfo">
-        <h2>School1</h2>
-        <p>city, state</p>
+      <ion-item class="item-thumbnail-left item-icon-right" id="favorites-list-item71" ng-repeat="fav in favorites">
+        <h2>{{fav.SchoolName}}</h2>
+        <p>{{fav.City}}, {{fav.SchoolId}}</p>
         <i class="icon ion-android-bookmark"></i>
-      </ion-item>
-      <ion-item class="item-thumbnail-left item-icon-right" id="favorites-list-item72" ui-sref="tabsController.schoolInfo">
-        <h2>School2</h2>
-        <p>city, state</p>
-        <i class="icon ion-android-bookmark"></i>
-      </ion-item>
-      <ion-item class="item-thumbnail-left item-icon-right" id="favorites-list-item73" ui-sref="tabsController.schoolInfo">
-        <h2>School3</h2>
-        <p>city, state</p>
-        <i class="icon ion-android-bookmark"></i>
-        <ion-option-button class="button-assertive">Delete</ion-option-button>
+        <!-- <ion-option-button class="button-assertive">Delete</ion-option-button> -->
       </ion-item>
     </ion-list>
     <div class="spacer" style="width: 300px; height: 140px;"></div>
