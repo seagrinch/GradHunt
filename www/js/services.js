@@ -62,6 +62,7 @@ angular.module('app.services', [])
       return deferred.promise;
     }
   };
+
 }])
 
 
@@ -88,6 +89,47 @@ angular.module('app.services', [])
     return DataStore;
 })
 
-.service('BlankService', [function(){
-}]);
+.factory('FavoriteService', ['$http','$q',function($http,$q){
+    
+    return {    
+
+       getFavorite:function() {
+           var deferred = $q.defer();
+     Parse.initialize("gradhunt_2016_mobileapp");
+    Parse.serverURL = 'http://gradhunt.herokuapp.com/parse' 
+     // $http.post("http://gradhunt.herokuapp.com/parse/classes/Favorites", 
+     //                   {"SchoolId":989,"City":94989,"SchoolName":school.INSTNM}, 
+     //                   {headers: 
+     //                   {  'X-Parse-Application-Id': "gradhunt_2016_mobileapp"
+     //               }});
+//GET///////
+
+    $http.get('http://gradhunt.herokuapp.com/parse/classes/Favorites',{
+                    headers:{
+                        'X-Parse-Application-Id': "gradhunt_2016_mobileapp"
+                        
+                    }
+                 }).then(function(successResponse){
+                       console.log(successResponse);
+                     deferred.resolve(successResponse);
+
+                    }, function(errorResponse){
+                      
+                 }).finally(function(){
+                     
+                 });
+                 return deferred.promise;
+             }}
+}])
+
+
+// .factory('TodoService',['$http','$q',function($http,$q){
+
+ 
+ 
+// }])
+
+.service('blankService',function(){
+  
+});
 

@@ -58,15 +58,18 @@ angular.module('app.controllers', [])
   }
 
 })
-   
-.controller('favoritesCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-// You can include any angular dependencies as parameters for this function
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
+
+.controller('favoritesCtrl',function($scope,FavoriteService) {
+  $scope.favorites = [];
+  console.log("inside favoritesCtrl");
+  FavoriteService.getFavorite().then(function(res) {
+     console.log("IN FavoriteService");
+     $scope.favorites = res.data.results;   
+    console.log($scope.favorites);
+  });
+})
 
 
-}])
-   
 .controller('compareCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
@@ -75,13 +78,42 @@ function ($scope, $stateParams) {
 
 }])
       
-.controller('todoCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-// You can include any angular dependencies as parameters for this function
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
+.controller('todoCtrl', function($scope) {
+  $scope.appTitle = "My ToDos";
+  $scope.appHeadline = "Save your tasks here!";
+  $scope.saved = localStorage.getItem('todos');
+  $scope.todos = (localStorage.getItem('todos')!==null) ? JSON.parse($scope.saved) : [ {text: 'Fill out the application form', done: false}, {text: 'Collect Transcripts', done: false} ];
+  localStorage.setItem('todos', JSON.stringify($scope.todos));
 
+  $scope.addTodo = function() {
+    $scope.todos.push({
+      text: $scope.todoText,
+      done: false
+    });
+    $scope.todoText = ''; //clear the input after adding
+    localStorage.setItem('todos', JSON.stringify($scope.todos));
+  };
 
-}])
+  $scope.remaining = function() {
+    var count = 0;
+    angular.forEach($scope.todos, function(todo){
+      count+= todo.done ? 0 : 1;
+    });
+    return count;
+  };
+
+  $scope.archive = function() {
+    var oldTodos = $scope.todos;
+    $scope.todos = [];
+    angular.forEach(oldTodos, function(todo){
+      if (!todo.done)
+        $scope.todos.push(todo);
+    });
+    localStorage.setItem('todos', JSON.stringify($scope.todos));
+  };
+}
+)
+
    
 .controller('coachingCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
@@ -107,8 +139,8 @@ function ($scope, $stateParams) {
 
 }])
    
-.controller('schoolInfoCtrl', function($scope, $window, SchoolService, DataStore) {
-	$scope.school = [];
+.controller('schoolInfoCtrl', function($scope,$http, $window, SchoolService, DataStore,FavoriteService) {
+  $scope.school = [];
   SchoolService.getSchool(DataStore.school).then(function(res) {
       $scope.school = res;
       console.log($scope.school);
@@ -120,8 +152,24 @@ function ($scope, $stateParams) {
       $window.open("http://"+url, '_blank');
     }
   };
-})
 
+  $scope.addFavorite = function(school){
+    console.log(school);
+    $scope.submitObject = function(){
+      console.log('Saving school Name');
+       Parse.initialize("gradhunt_2016_mobileapp");
+     Parse.serverURL = 'http://gradhunt.herokuapp.com/parse' 
+     console.log('Parse initializing');
+     // var dataToSubmit = {_ContentType: Name, _type : "Object"};
+      $http.post("http://gradhunt.herokuapp.com/parse/classes/Favorites", school.INSTNM,
+                     
+                       {headers: 
+                       {  'X-Parse-Application-Id': "gradhunt_2016_mobileapp",
+                   }});
+      console.log('Data posted in parse');
+    }
+  }
+})
 
    
 .controller('coachSearchResultCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
