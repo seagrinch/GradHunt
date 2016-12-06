@@ -29,15 +29,8 @@
     <form id="search-form9" class="list">
       <label class="item item-select" id="search-select2">
         <span class="input-label">Select from the list</span>
-          <select ng-model="program" ng-change="updateProgram(program)" ng-options="program.id as program.title for program in programs track by program.title">
+          <select ng-model="program" ng-change="updateProgram(program)" ng-options="program.id as program.title for program in programs">
           </select>
-        <!--select>
-            
-            <ion-item ng-repeat="program in programs">
-                 <option>{{program.title}}</option>
-            </ion-item>
-   
-        </select-->
       </label>
     </form>
 <!--
