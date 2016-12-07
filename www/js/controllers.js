@@ -76,7 +76,8 @@ angular.module('app.controllers', [])
         myObject.destroy({
           success: function(myObject) {
             console.log('Deleted')
-            $state.go('tabsController.favorites', {}, {reload: true});
+            //$state.go('tabsController.favorites', {}, {reload: true});
+            $state.reload();
           },
           error: function(myObject, error) {
             alert('Delete failed, with error code: ' + error.message);
