@@ -52,7 +52,8 @@ angular.module('app.routes', ['ionicUIRouter'])
         templateUrl: 'templates/favorites.html',
         controller: 'favoritesCtrl'
       }
-    }
+    },
+    cache: false,
   })
 
   .state('tabsController.compare', {

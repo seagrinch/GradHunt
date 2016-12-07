@@ -26,19 +26,19 @@ angular.module('app.controllers', [])
 
   $scope.updateRegion = function(v) {
     DataStore.setRegion(v);
-    console.log(DataStore);
+    //console.log(DataStore);
   }  
   $scope.updateDegree = function(v) {
     DataStore.setDegree(v);
-    console.log(DataStore);
+    //console.log(DataStore);
   }
   $scope.updateProgram = function(v) {
     DataStore.setProgram(v);
-    console.log(DataStore);
+    //console.log(DataStore);
   }
   $scope.updateScore = function(v) {
     DataStore.setScore(v);
-    console.log(DataStore);
+    //console.log(DataStore);
   }
   
 })
@@ -47,7 +47,7 @@ angular.module('app.controllers', [])
 	$scope.schools = [];
   SchoolService.getSchools(DataStore.program,DataStore.degree,DataStore.region,DataStore.score).then(function(res) {
     $scope.schools = res;
-    console.log($scope.schools );
+    //console.log($scope.schools );
   });
 
   $scope.school = DataStore.school;
@@ -59,14 +59,42 @@ angular.module('app.controllers', [])
 
 })
 
-.controller('favoritesCtrl',function($scope,FavoriteService) {
+.controller('favoritesCtrl',function($scope, $state, FavoriteService, DataStore) {
   $scope.favorites = [];
-  console.log("inside favoritesCtrl");
   FavoriteService.getFavorite().then(function(res) {
-     console.log("IN FavoriteService");
-     $scope.favorites = res.data.results;   
-    console.log($scope.favorites);
+    $scope.favorites = res.data.results;   
+    //console.log($scope.favorites);
   });
+
+  $scope.deleteFavorite = function(school){
+    Parse.initialize("gradhunt_2016_mobileapp");
+    Parse.serverURL = 'http://gradhunt.herokuapp.com/parse' 
+    var Favorite = Parse.Object.extend("Favorites");
+    var query = new Parse.Query(Favorite);
+    query.get(school.objectId, {
+      success: function(myObject) {
+        myObject.destroy({
+          success: function(myObject) {
+            console.log('Deleted')
+            $state.go('tabsController.favorites', {}, {reload: true});
+          },
+          error: function(myObject, error) {
+            alert('Delete failed, with error code: ' + error.message);
+          }
+        });
+      },
+      error: function(object, error) {
+        alert('The object was not retrieved successfully');
+      }
+    });
+  }
+
+  $scope.changeSchool = function(schoolId) {
+    DataStore.setSchool(schoolId);	
+    console.log(schoolId)
+  	$state.go('tabsController.schoolInfo');
+  }
+  
 })
 
 
@@ -139,7 +167,7 @@ function ($scope, $stateParams) {
 
 }])
    
-.controller('schoolInfoCtrl', function($scope,$http, $window, SchoolService, DataStore,FavoriteService) {
+.controller('schoolInfoCtrl', function($scope,$http, $window, SchoolService, DataStore, FavoriteService) {
   $scope.school = [];
   SchoolService.getSchool(DataStore.school).then(function(res) {
       $scope.school = res;
@@ -154,22 +182,37 @@ function ($scope, $stateParams) {
   };
 
   $scope.addFavorite = function(school){
+    Parse.initialize("gradhunt_2016_mobileapp");
+    Parse.serverURL = 'http://gradhunt.herokuapp.com/parse' 
+    console.log('Saving school ' + school.INSTNM);
     console.log(school);
-       Parse.initialize("gradhunt_2016_mobileapp");
-     Parse.serverURL = 'http://gradhunt.herokuapp.com/parse' 
-      console.log('Saving school Name');
-       
-     console.log('Parse initializing');
-     // var dataToSubmit = {_ContentType: Name, _type : "Object"};
-       $http.post("http://gradhunt.herokuapp.com/parse/classes/Favorites", 
-                       {"SchoolName":school.INSTNM,"City":school.CITY,"State":school.STABBR}, 
-                     
-                       {headers: 
-                       {  'X-Parse-Application-Id': "gradhunt_2016_mobileapp",
-                   }});
-      console.log('Data posted in parse');
-    
+    // var dataToSubmit = {_ContentType: Name, _type : "Object"};
+  /*
+    $http.post("http://gradhunt.herokuapp.com/parse/classes/Favorites", 
+      {"SchoolName":school.INSTNM,"City":school.CITY,"State":school.STABBR},                
+      {headers: 
+        {'X-Parse-Application-Id': "gradhunt_2016_mobileapp"}
+      }
+    );
+    console.log('Data posted in parse');
+  */
+    var Favorite = Parse.Object.extend("Favorites");
+    var favorite = new Favorite();
+    favorite.set("SchoolName", school.INSTNM);
+    favorite.set("City", school.CITY);
+    favorite.set("State", school.STABBR);    
+    favorite.set("sid", school.id);    
+    favorite.save(null, {
+      success: function(res) {
+        console.log('New object created with objectId: ' + res.id);
+      },
+      error: function(res, error) {
+        alert('Failed to create new object, with error code: ' + error.message);
+      }
+    });
+
   }
+
 })
 
    
