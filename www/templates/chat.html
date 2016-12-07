@@ -1,14 +1,50 @@
-<ion-view title="Chat" id="page8">
-  <ion-content padding="true" class="has-header">
+<style>
+
+
+input, textarea, .item-input, .item-input-wrapper {
+  background-color: #f4f4f4 !important;
+}
+
+.bold {
+  font-weight: bold;
+}
+</style>
+
+<ion-view title="Chat" id="page8" class="messaging-view">
+    <ion-header-bar class="bar-calm">
+      <h1 class="title">Ioinc Chat</h1>
+    </ion-header-bar>
+  <ion-content padding="true" >
+
     <div class="spacer" style="width: 300px; height: 369px;"></div>
-    <form id="chat-form11" class="list">
-      <label class="item item-input" id="chat-input16">
-        <input type="text" placeholder="">
+
+          <div ng-repeat="message in messages"
+           ng-class="{other: message.userId != myId}"
+           class="messages  ">
+
+        <div class="message" ng-class="{'slide-right': hideTime, '': !hideTime}">
+          <span>{{ message.text }}</span>
+        </div>
+
+            
+              
+        <div class="time" ng-class="{'slide-right': hideTime, '': !hideTime}">{{message.time}}</div>
+
+
+      </div>
+      <div keyboard-attach class="bar-stable item-input-inset">
+      <label class="item-input-wrapper">
+        <textarea type="text" placeholder="Type your message" on-return="sendMessage(); closeKeyboard()" ng-model="data.message" on-focus="inputUp()" on-blur="inputDown()"  ></textarea>
       </label>
-    </form>
+          
+                        
+      </div>
     <div id="chat-button-bar11" class="button-bar">
       <button id="chat-button13" class="button button-positive  button-block">Attach file</button>
-      <button id="chat-button14" class="button button-positive  button-block">Send</button>
+      <button id="chat-button14" class="button button-positive  button-block" ng-click="sendMessage()">Send</button>
     </div>
   </ion-content>
-</ion-view>
+</ion-view >
+
+
+  
