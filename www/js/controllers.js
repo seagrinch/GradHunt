@@ -178,7 +178,7 @@ function ($scope, $stateParams) {
   $scope.redirectToUrl = function(url){
     console.log(url);
     if(url) {
-      $window.open("http://"+url, '_blank');
+      $window.open("http://"+url, '_system', 'location=yes');
     }
   };
 
